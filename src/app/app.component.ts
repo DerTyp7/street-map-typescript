@@ -6,9 +6,6 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-import Feature from 'ol/Feature';
-import Polygon from 'ol/geom/Polygon';
-import Point from 'ol/geom/Point';
 
 
 @Component({
@@ -21,8 +18,11 @@ export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
 
-  ngAfterViewInit() {
+  getValue(valueFrom:string, valueTo:string){
+    console.log("From " + valueFrom + " to " + valueTo);
+  }
 
+  ngAfterViewInit() {
     this.map = new Map({
       target: 'map',
       layers: [
