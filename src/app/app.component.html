@@ -1,7 +1,7 @@
 <header>
   <div class="searchField">
-    <input #inputFrom (keyup)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
-    <input #inputTo (keyup)="getValue(inputFrom.value, inputTo.value)"type="text" name="inputTo" id="inputTo" placeholder="To">
+    <input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
+    <input #inputTo (change)="getValue(inputFrom.value, inputTo.value)"type="text" name="inputTo" id="inputTo" placeholder="To">
   </div>
   <p>{{title}}</p>
 </header>
