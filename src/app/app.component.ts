@@ -1,12 +1,14 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { defaults as defaultControls } from 'ol/control';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import { Nominatim } from './interfaces/nominatim';
+import { NominatimService } from './nominatim.service';
 
+import { defaults as defaultControls } from 'ol/control';
+import { fromLonLat } from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-
 
 @Component({
   selector: 'app-root',
@@ -14,12 +16,30 @@ import ZoomToExtent from 'ol/control/ZoomToExtent';
   styleUrls: ['./app.component.css', '../../node_modules/ol/ol.css']
 })
 
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements AfterViewInit, OnInit {
   title = "Street Map";
   map: Map;
 
-  getValue(valueFrom:string, valueTo:string){
+  @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
+
+
+  constructor(private nominatimService: NominatimService) { }
+  
+  updateAutoCompleteList(): void{
+    this.autocompleteList.nativeElement.innerHTML = "Fsd";
+  }
+
+  // Gets called in "app.component.html" when an input changes its value
+  getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
+
+    this.nominatimService.sendQueryRequest(valueFrom)
+    .subscribe((response: Nominatim[]) => console.log(response));
+    
+  }
+
+  ngOnInit() {
+    
   }
 
   ngAfterViewInit() {
@@ -33,7 +53,8 @@ export class AppComponent implements AfterViewInit {
         })
       ],
       view: new View({
-        center: [813079.7791264898, 5929220.284081122],
+        projection: 'EPSG:3857',
+        center: fromLonLat([8, 52]),
         zoom: 2
       }),
       controls: defaultControls().extend([
@@ -45,7 +66,7 @@ export class AppComponent implements AfterViewInit {
         })
       ])
     });
-
+    setTimeout(() => this.map.updateSize(), 200);
   }
 }
 
