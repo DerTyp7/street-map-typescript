@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { Nominatim } from './interfaces/nominatim';
 import { NominatimService } from './nominatim.service';
 
@@ -20,14 +20,22 @@ export class AppComponent implements AfterViewInit, OnInit {
   title = "Street Map";
   map: Map;
 
+  @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
+
+
   constructor(private nominatimService: NominatimService) { }
   
+  updateAutoCompleteList(): void{
+    this.autocompleteList.nativeElement.innerHTML = "Fsd";
+  }
+
   // Gets called in "app.component.html" when an input changes its value
   getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
 
     this.nominatimService.sendQueryRequest(valueFrom)
     .subscribe((response: Nominatim[]) => console.log(response));
+    
   }
 
   ngOnInit() {

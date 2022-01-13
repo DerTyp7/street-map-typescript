@@ -1,7 +1,12 @@
 <header>
   <div class="searchField">
-    <input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
-    <input #inputTo (change)="getValue(inputFrom.value, inputTo.value)"type="text" name="inputTo" id="inputTo" placeholder="To">
+	<div class="autocomplete">
+	  	<input #inputFrom (keyup)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
+		 	<div #inputautocompleteList class="autocomplete-items">
+				<div>test<input type="hidden" value="test"></div>
+			</div>
+	</div>
+	<input #inputTo (keyup)="getValue(inputFrom.value, inputTo.value)"type="text" name="inputTo" id="inputTo" placeholder="To">
   </div>
   <p>{{title}}</p>
 </header>
