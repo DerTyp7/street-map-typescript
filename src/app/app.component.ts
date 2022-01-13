@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit} from '@angular/core';
+import { Component, AfterViewInit} from '@angular/core';
 
 import { defaults as defaultControls } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
@@ -14,13 +14,9 @@ import ZoomToExtent from 'ol/control/ZoomToExtent';
   styleUrls: ['./app.component.css', '../../node_modules/ol/ol.css']
 })
 
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
-
-  ngOnInit() {
-    
-  }
 
   ngAfterViewInit() {
     this.map = new Map({
