@@ -1,3 +1,10 @@
+#inputFrom:focus + .autocomplete-items-from{
+  display:block;
+}
+
+#inputTo:focus + .autocomplete-items-to{
+  display:block;
+}
 
 .searchField{
     display:block;
@@ -24,6 +31,7 @@
   }
   
 .autocomplete-items {
+    display:none;
     position: absolute;
     border: 1px solid #d4d4d4;
     border-bottom: none;

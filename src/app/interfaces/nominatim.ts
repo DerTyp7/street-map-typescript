@@ -2,7 +2,7 @@
 export interface Nominatim {
     boundingbox?: Array<string>;
     category?: string;
-    display_name: string;
+    display_name?: string;
     icon?: string;
     importance?: number;
     lat?: string;

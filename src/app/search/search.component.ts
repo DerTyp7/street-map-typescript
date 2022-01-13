@@ -16,24 +16,18 @@ export class SearchComponent implements OnInit {
 
   constructor(private nominatimService: NominatimService) { }
 
-  updateAutoCompleteList(itemsFrom: Nominatim[], itemsTo: Nominatim[]): void{
-
-   this.itemsFrom = itemsFrom;
-   this.itemsTo = itemsTo;
-
-    /*this.autocompleteList.nativeElement.innerHTML = "";
-    items.forEach(item => {
-      this.autocompleteList.nativeElement.innerHTML += '<div>' + item.display_name + '<input type="hidden" value="' + item.display_name + '"></div>' ;
-    });*/
-  }
 
   // Gets called in "app.component.html" when an input changes its value
   getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
-    this.updateAutoCompleteList([{display_name: 'Hallo'}, {display_name: 'Test2'}], [{display_name: 'Halload'}, {display_name: 'Test4'}]);
+    
+    //this.updateAutoCompleteList([{display_name: 'Hallo'}, {display_name: 'Test2'}], [{display_name: 'Halload'}, {display_name: 'Test4'}]);
 
-    /*this.nominatimService.sendQueryRequest(valueFrom)
-    .subscribe((response: Nominatim[]) => this.updateAutoCompleteList(response));*/
+    this.nominatimService.sendQueryRequest(valueFrom)
+    .subscribe((response: Nominatim[]) => this.itemsFrom = response);
+
+    this.nominatimService.sendQueryRequest(valueTo)
+    .subscribe((response: Nominatim[]) => this.itemsTo = response);
     
   }
   ngOnInit(): void {
