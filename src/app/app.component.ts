@@ -1,19 +1,14 @@
-import { Component, OnInit, AfterViewInit, NgModule } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Nominatim } from './interfaces/nominatim';
+import { NominatimService } from './nominatim.service';
+
 import { defaults as defaultControls } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
-import { Observable, throwError } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClient } from '@angular/common/http';
-
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-import { Nominatim } from './interfaces/nominatim';
-
-
 
 @Component({
   selector: 'app-root',
@@ -25,14 +20,14 @@ export class AppComponent implements AfterViewInit, OnInit {
   title = "Street Map";
   map: Map;
 
-
-  constructor(private http: HttpClient) { }
+  constructor(private nominatimService: NominatimService) { }
   
-
-  getValue(valueFrom:string, valueTo:string){
+  // Gets called in "app.component.html" when an input changes its value
+  getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
-    this.http.get<Nominatim>("https://nominatim.openstreetmap.org/search.php?format=jsonv2&q=" + valueFrom)
-    .subscribe((response: Nominatim) => console.log(response))
+
+    this.nominatimService.sendQueryRequest(valueFrom)
+    .subscribe((response: Nominatim[]) => console.log(response));
   }
 
   ngOnInit() {

@@ -1,4 +1,4 @@
-
+// Nominatim JSON object to TypeScript interface
 export interface Nominatim {
     boundingbox: Array<string>;
     category: string;
