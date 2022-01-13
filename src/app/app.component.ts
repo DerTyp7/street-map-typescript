@@ -11,7 +11,7 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-import { Nom } from './interfaces/nom';
+import { Nominatim } from './interfaces/nominatim';
 
 
 
@@ -31,8 +31,8 @@ export class AppComponent implements AfterViewInit, OnInit {
 
   getValue(valueFrom:string, valueTo:string){
     console.log("From " + valueFrom + " to " + valueTo);
-    this.http.get<Nom[]>("https://nominatim.openstreetmap.org/search.php?format=jsonv2&q=" + valueFrom)
-    .subscribe((response: Nom[]) => console.log(response))
+    this.http.get<Nominatim>("https://nominatim.openstreetmap.org/search.php?format=jsonv2&q=" + valueFrom)
+    .subscribe((response: Nominatim) => console.log(response))
   }
 
   ngOnInit() {
