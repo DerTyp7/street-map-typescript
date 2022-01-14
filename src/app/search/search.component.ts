@@ -27,10 +27,14 @@ export class SearchComponent implements OnInit {
   longTo: number = 0;
   latTo: number = 0;
 
+  selectedPhotonFrom: Photon;
+  selectedPhotonTo: Photon;
+
   constructor(private nominatimService: NominatimService, private photonService: PhotonService) { }
 
   selectPhoton(isFrom: boolean, p: Photon): void{
     if(isFrom){
+      this.selectedPhotonFrom = p;
       this.longFrom = <number> p.geometry?.coordinates[0];
       this.latFrom = <number> p.geometry?.coordinates[1];
       this.inputFromValue = <string> p.properties.name
@@ -48,6 +52,7 @@ export class SearchComponent implements OnInit {
       }
 
     }else{
+      this.selectedPhotonTo = p;
       this.longTo = <number>p.geometry?.coordinates[0];
       this.latTo = <number>p.geometry?.coordinates[1];
       this.inputToValue = <string> p.properties.name + " " + p.properties.countrycode;

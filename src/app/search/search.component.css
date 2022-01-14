@@ -1,9 +1,9 @@
 #inputFrom:focus + .autocomplete-items-from{
-  display:block;
+  visibility:visible;
 }
 
 #inputTo:focus + .autocomplete-items-to{
-  display:block;
+  visibility:visible;
 }
 
 .searchField{
@@ -31,7 +31,7 @@
   }
   
 .autocomplete-items {
-    display:block; /* without debugging it should be display:none */
+    visibility:  visible; /* without debugging it should be display:none */
     position: absolute;
     border: 1px solid #d4d4d4;
     border-bottom: none;
