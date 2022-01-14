@@ -18,5 +18,10 @@ interface PhotonProperties{
 export interface Photon{
     geometry?: PhotonGeometry;
     type?: string;
-    properties?: PhotonProperties;
+    properties: PhotonProperties;
+}
+
+export interface PhotonFeatureCollection{
+    features?: Array<Photon>;
+    type?: string;
 }

@@ -2,19 +2,33 @@
 	<div class="autocomplete">
 	  	<input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
 		  <div #inputautocompleteList class="autocomplete-items autocomplete-items-from">
-			<div *ngFor="let item of itemsFrom" >
+
+			<div *ngFor="let item of nominatimItemsFrom" >
 				{{ item.display_name }}
 				<input type="hidden" value="{{ item.display_name }}">
 			</div>
+
+			<div *ngFor="let item of photonItemsTo" >
+				{{ item.properties.name }}
+				<input type="hidden" value="{{  item.properties?.name }}">
+			</div>
+
 		</div>
 	</div>
 	<div class="autocomplete">
 		<input #inputTo (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputTo" id="inputTo" placeholder="To">
 		<div #inputautocompleteList class="autocomplete-items autocomplete-items-to">
-			<div *ngFor="let item of itemsTo" >
+
+			<div *ngFor="let item of nominatimItemsTo" >
 				{{ item.display_name }}
 				<input type="hidden" value="{{ item.display_name }}">
 			</div>
+
+			<div *ngFor="let item of photonItemsTo" >
+				{{  item.properties.name }}
+				<input type="hidden" value="{{  item.properties?.name }}">
+			</div>
+
 		</div>
 	</div>
 </div>
