@@ -1,13 +1,5 @@
 <header>
-  <div class="searchField">
-	<div class="autocomplete">
-	  	<input #inputFrom (keyup)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
-		 	<div #inputautocompleteList class="autocomplete-items">
-				<div>test<input type="hidden" value="test"></div>
-			</div>
-	</div>
-	<input #inputTo (keyup)="getValue(inputFrom.value, inputTo.value)"type="text" name="inputTo" id="inputTo" placeholder="To">
-  </div>
+  <app-search></app-search>
   <p>{{title}}</p>
 </header>
 

@@ -18,7 +18,7 @@ import ZoomToExtent from 'ol/control/ZoomToExtent';
   styleUrls: ['./app.component.css', '../../node_modules/ol/ol.css']
 })
 
-export class AppComponent implements AfterViewInit, OnInit {
+export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
 
