@@ -13,6 +13,8 @@ interface PhotonProperties{
     osm_value?: string;
     name?: string;
     type?: string;
+    postcode?: string;
+    city?: string;
 }
 
 export interface Photon{

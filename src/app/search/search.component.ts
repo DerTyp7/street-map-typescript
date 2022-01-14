@@ -35,13 +35,15 @@ export class SearchComponent implements OnInit {
     this.nominatimService.sendQueryRequest(valueTo)
     .subscribe((response: Nominatim[]) => this.nominatimItemsTo = response);
     */
+    this.photonItemsFrom = [];
+    this.photonItemsTo = [];
 
     this.photonService.sendQueryRequest(valueFrom)
     .subscribe((response: PhotonFeatureCollection) => response.features?.forEach(feature => {
       this.photonItemsFrom.push(feature);
     }));
 
-    this.photonService.sendQueryRequest(valueFrom)
+    this.photonService.sendQueryRequest(valueTo)
     .subscribe((response: PhotonFeatureCollection) => response.features?.forEach(feature => {
       this.photonItemsTo.push(feature);
     }));

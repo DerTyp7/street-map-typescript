@@ -13,6 +13,6 @@ export class PhotonService{
 
   // sends a query request to Photon and gets response (https://photon.komoot.io/)
   sendQueryRequest(q: string): Observable<PhotonFeatureCollection> { 
-    return this.http.get<PhotonFeatureCollection>("https://photon.komoot.io/api/?q=" + q);
+    return this.http.get<PhotonFeatureCollection>("https://photon.komoot.io/api/?q=" + q + "&limit=10");
   }
 }
