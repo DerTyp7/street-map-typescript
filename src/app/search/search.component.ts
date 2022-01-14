@@ -19,6 +19,9 @@ export class SearchComponent implements OnInit {
   photonItemsFrom: Photon[] = [];
   photonItemsTo: Photon[] = [];
 
+  inputFromValue: string;
+  inputToValue: string;
+
   longFrom: number = 0;
   latFrom: number = 0;
   longTo: number = 0;
@@ -26,13 +29,28 @@ export class SearchComponent implements OnInit {
 
   constructor(private nominatimService: NominatimService, private photonService: PhotonService) { }
 
-  changeInputs(isFrom: boolean, long: number, lat: number): void{
+  selectPhoton(isFrom: boolean, p: Photon): void{
     if(isFrom){
-      this.longFrom = long;
-      this.latFrom = lat;
+      this.longFrom = <number> p.geometry?.coordinates[0];
+      this.latFrom = <number> p.geometry?.coordinates[1];
+      this.inputFromValue = <string> p.properties.name
+
+      if(p.properties.postcode){
+        this.inputFromValue += " " + p.properties.postcode;
+      }
+
+      if(p.properties.city){
+        this.inputFromValue += " " + p.properties.city;
+      }
+
+      if(p.properties.countrycode){
+        this.inputFromValue += " " + p.properties.countrycode;
+      }
+
     }else{
-      this.longTo = long;
-      this.latTo = lat;
+      this.longTo = <number>p.geometry?.coordinates[0];
+      this.latTo = <number>p.geometry?.coordinates[1];
+      this.inputToValue = <string> p.properties.name + " " + p.properties.countrycode;
     }
   }
   // Gets called in "app.component.html" when an input changes its value

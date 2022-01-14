@@ -1,13 +1,13 @@
 <div class="searchField">
 	<div id="coordinates">
-		<input *ngIf="photonItemsFrom[0]"  id="longFromInput" value="{{ longFrom }}">
-		<input *ngIf="photonItemsFrom[0]"  id="latFromInput" value="{{ latFrom }}">
+		<input *ngIf="photonItemsFrom[0]" hidden id="longFromInput" value="{{ longFrom }}">
+		<input *ngIf="photonItemsFrom[0]" hidden id="latFromInput" value="{{ latFrom }}">
 
-		<input *ngIf="photonItemsTo[0]"  id="longToInput" value="{{ longTo}}">
-		<input *ngIf="photonItemsTo[0]"  id="latToInput" value="{{ latTo }}">
+		<input *ngIf="photonItemsTo[0]" hidden id="longToInput" value="{{ longTo}}">
+		<input *ngIf="photonItemsTo[0]" hidden id="latToInput" value="{{ latTo }}">
 	</div>
 	<div class="autocomplete">
-	  	<input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
+	  	<input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From" value="{{ inputFromValue }}">
 		  <div #inputautocompleteList class="autocomplete-items autocomplete-items-from">
 	
 			<div *ngFor="let item of nominatimItemsFrom" >
@@ -15,14 +15,15 @@
 				<input type="hidden" value="{{ item.display_name }}">
 			</div>
 
-			<div *ngFor="let item of photonItemsFrom" (click)="changeInputs(true, item.geometry?.coordinates![0],  item.geometry?.coordinates![1] )">
+			<div *ngFor="let item of photonItemsFrom"
+			(click)="selectPhoton(true, item)">
 				{{ item.properties.name }} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}} 
 			</div>
 
 		</div>
 	</div>
 	<div class="autocomplete" id="autocompleteTo">
-		<input #inputTo (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputTo" id="inputTo" placeholder="To">
+		<input #inputTo (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputTo" id="inputTo" placeholder="To" value="{{ inputToValue }}">
 		<div #inputautocompleteList class="autocomplete-items autocomplete-items-to">
 
 			<div *ngFor="let item of nominatimItemsTo" >
@@ -30,7 +31,8 @@
 				<input type="hidden" value="{{ item.display_name }}">
 			</div>
 
-			<div *ngFor="let item of photonItemsTo" (click)="changeInputs(false, item.geometry?.coordinates![0],  item.geometry?.coordinates![1] )">
+			<div *ngFor="let item of photonItemsTo"
+			(click)="selectPhoton(false, item)">
 				{{  item.properties.name }} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}}
 				<input type="hidden" value="{{  item.properties?.name }}">
 			</div>
