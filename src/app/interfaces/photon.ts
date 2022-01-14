@@ -1,5 +1,5 @@
 interface PhotonGeometry{
-    coordinates?: Array<number>;
+    coordinates: Array<number>;
     type?: string;
 }
 

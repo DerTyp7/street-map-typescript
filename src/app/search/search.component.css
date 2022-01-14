@@ -31,7 +31,7 @@
   }
   
 .autocomplete-items {
-    display:none;
+    display:block; /* without debugging it should be display:none */
     position: absolute;
     border: 1px solid #d4d4d4;
     border-bottom: none;
