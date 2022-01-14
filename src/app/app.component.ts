@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { Nominatim } from './interfaces/nominatim';
 import { NominatimService } from './nominatim.service';
+import { Photon } from './interfaces/photon';
+import { PhotonService } from './photon.service';
 
 import { defaults as defaultControls } from 'ol/control';
 import { fromLonLat } from 'ol/proj';
@@ -23,7 +25,7 @@ export class AppComponent implements AfterViewInit, OnInit {
   @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
 
 
-  constructor(private nominatimService: NominatimService) { }
+  constructor(private nominatimService: NominatimService, private photonService: PhotonService) { }
   
   updateAutoCompleteList(): void{
     this.autocompleteList.nativeElement.innerHTML = "Fsd";
@@ -33,8 +35,13 @@ export class AppComponent implements AfterViewInit, OnInit {
   getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
 
+    /*
     this.nominatimService.sendQueryRequest(valueFrom)
-    .subscribe((response: Nominatim[]) => console.log(response));
+    .subscribe((response: Nominatim[]) => console.log(response));*/
+
+    this.photonService.sendQueryRequest(valueFrom)
+    .subscribe((response: Photon[]) => console.log(response));
+
     
   }
 
