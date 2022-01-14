@@ -1,6 +1,6 @@
 <div class="searchField">
 	<div class="autocomplete">
-	  	<input #inputFrom (keyup)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
+	  	<input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From">
 		  <div #inputautocompleteList class="autocomplete-items autocomplete-items-from">
 			<div *ngFor="let item of itemsFrom" >
 				{{ item.display_name }}
@@ -9,7 +9,7 @@
 		</div>
 	</div>
 	<div class="autocomplete">
-		<input #inputTo (keyup)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputTo" id="inputTo" placeholder="To">
+		<input #inputTo (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputTo" id="inputTo" placeholder="To">
 		<div #inputautocompleteList class="autocomplete-items autocomplete-items-to">
 			<div *ngFor="let item of itemsTo" >
 				{{ item.display_name }}
