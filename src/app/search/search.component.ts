@@ -99,7 +99,10 @@ export class SearchComponent{
   getRoute(): void{
     console.log("getroute");
     this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latFrom)
-    .subscribe((response: Osrm) => console.log(response)  );
-    this.appComponent.drawPath();
+    .subscribe((response: Osrm) => {
+      console.log(response);
+      this.appComponent.drawPath(response);
+    }
+    );
   }
 }

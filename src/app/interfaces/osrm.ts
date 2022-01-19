@@ -6,15 +6,20 @@ interface OsrmWaypoint{
 }
 
 interface OsrmGeometry{
+    type: GeometryType;
     coordinates?: Array<Array<number>>;
 }
 
+enum GeometryType {
+    LINE_STRING = "LineString"
+}
+
 interface OsrmRoute{
-    geometry?: OsrmGeometry;
+    geometry: OsrmGeometry;
 }
 
 export interface Osrm{
     code?: string;
     waypoints?: Array<OsrmWaypoint>;
-    routes?: Array<OsrmRoute>;
+    routes: Array<OsrmRoute>;
 }

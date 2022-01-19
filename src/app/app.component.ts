@@ -4,7 +4,7 @@ import { Component, AfterViewInit} from '@angular/core';
 import { defaults as defaultControls } from 'ol/control';
 import GeoJSON from 'ol/format/GeoJSON';
 import { OpenLayersGeoJSON } from './interfaces/openlayersGeojson';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, transform } from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -17,6 +17,8 @@ import VectorSource from 'ol/source/Vector';
 import { wrapX } from 'ol/extent';
 import LineString from 'ol/geom/LineString';
 import { Osrm } from './interfaces/osrm';
+import { Feature } from 'ol';
+import Geometry from 'ol/geom/Geometry';
 
 @Component({
   selector: 'app-root',
@@ -27,8 +29,6 @@ import { Osrm } from './interfaces/osrm';
 export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
-  vectorLayer = new VectorLayer;
-  features: GeoJSON;
 
   constructor() { }
   
@@ -59,10 +59,27 @@ export class AppComponent implements AfterViewInit {
     setTimeout(() => this.map.updateSize(), 200);
   }
 
-  drawPath(): void{
+  drawPath(osrm: Osrm): void{
+    console.log(osrm) //https://routing.openstreetmap.de/routed-bike/route/v1/driving/8.6042708,53.5151533;13.6887164,51.0491468?overview=false&alternatives=true&steps=true
+   
+    const coordinates = osrm.routes[0].geometry.coordinates || [];
+    const f_coordinates: Array<Array<number>> = []
+    coordinates.forEach(coordinate =>
+      {
+        f_coordinates.push(transform(coordinate, 'EPSG:4326', 'EPSG:3857'))
+      }
+    );
+
+    const lineString: LineString = new LineString(f_coordinates);
+    const feature: Feature<Geometry> = new Feature({ geometry: lineString });
+    const vectorSource = new VectorSource({ features: [ feature ]});
+    console.log(feature.getGeometry());
+    const vectorLayer = new VectorLayer({ source: vectorSource });
+    this.map.addLayer(vectorLayer);
 
    // this.features = new GeoJSON().readFeatures(new openLayersGeoJSON())
 
+   /*
     this.vectorLayer = new VectorLayer({
       background: '#1a2b39',
       source: new VectorSource({
@@ -71,7 +88,7 @@ export class AppComponent implements AfterViewInit {
       })
     });
 
-    this.map.addLayer(this.vectorLayer);
+    this.map.addLayer(this.vectorLayer);*/
   }
 }
 
