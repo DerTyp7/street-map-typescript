@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Photon, PhotonFeatureCollection } from './interfaces/photon';
+import { PhotonFeatureCollection } from './interfaces/photon';
 import { Observable } from 'rxjs';
 
 @Injectable({

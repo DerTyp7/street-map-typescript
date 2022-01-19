@@ -3,14 +3,16 @@ import { Nominatim } from '../interfaces/nominatim';
 import { NominatimService } from '../nominatim.service';
 import { Photon, PhotonFeatureCollection } from '../interfaces/photon';
 import { PhotonService } from '../photon.service';
-
+import { OsrmService } from '../osrm.service';
+import { Osrm } from '../interfaces/osrm';
+import { AppComponent } from '../app.component';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
 
-export class SearchComponent implements OnInit {
+export class SearchComponent{
   @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
 
   nominatimItemsFrom: Nominatim[] = [];
@@ -30,7 +32,12 @@ export class SearchComponent implements OnInit {
   selectedPhotonFrom: Photon;
   selectedPhotonTo: Photon;
 
-  constructor(private nominatimService: NominatimService, private photonService: PhotonService) { }
+  constructor(
+    private nominatimService: NominatimService,
+    private photonService: PhotonService,
+    private osrmService: OsrmService,
+    private appComponent: AppComponent
+    ) { }
 
   selectPhoton(isFrom: boolean, p: Photon): void{
     if(isFrom){
@@ -88,7 +95,11 @@ export class SearchComponent implements OnInit {
       this.latTo = <number>this.photonItemsTo[0].geometry?.coordinates![1];
     }));
   }
-  ngOnInit(): void {
-  }
 
+  getRoute(): void{
+    console.log("getroute");
+    this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latFrom)
+    .subscribe((response: Osrm) => console.log(response)  );
+    this.appComponent.drawPath();
+  }
 }

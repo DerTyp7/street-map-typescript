@@ -1,13 +1,22 @@
-import { Component, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, AfterViewInit} from '@angular/core';
 
 
 import { defaults as defaultControls } from 'ol/control';
+import GeoJSON from 'ol/format/GeoJSON';
+import { OpenLayersGeoJSON } from './interfaces/openlayersGeojson';
 import { fromLonLat } from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
+import Layer from 'ol/layer/Layer';
+import VectorLayer from 'ol/layer/Vector';
+import Draw from 'ol/interaction/Draw';
+import VectorSource from 'ol/source/Vector';
+import { wrapX } from 'ol/extent';
+import LineString from 'ol/geom/LineString';
+import { Osrm } from './interfaces/osrm';
 
 @Component({
   selector: 'app-root',
@@ -18,33 +27,11 @@ import ZoomToExtent from 'ol/control/ZoomToExtent';
 export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
-
-  @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
-
+  vectorLayer = new VectorLayer;
+  features: GeoJSON;
 
   constructor() { }
   
-  updateAutoCompleteList(): void{
-    this.autocompleteList.nativeElement.innerHTML = "Fsd";
-  }
-
-  // Gets called in "app.component.html" when an input changes its value
-  getValue(valueFrom:string, valueTo:string): void{
-    console.log("From " + valueFrom + " to " + valueTo);
-
-    /*
-    this.nominatimService.sendQueryRequest(valueFrom)
-    .subscribe((response: Nominatim[]) => console.log(response));*/
-
-    
-
-    
-  }
-
-  ngOnInit() {
-    
-  }
-
   ngAfterViewInit() {
     this.map = new Map({
       target: 'map',
@@ -70,6 +57,21 @@ export class AppComponent implements AfterViewInit {
       ])
     });
     setTimeout(() => this.map.updateSize(), 200);
+  }
+
+  drawPath(): void{
+
+   // this.features = new GeoJSON().readFeatures(new openLayersGeoJSON())
+
+    this.vectorLayer = new VectorLayer({
+      background: '#1a2b39',
+      source: new VectorSource({
+        url: 'http://router.project-osrm.org/route/v1/driving/-1.8744130630953275,52.45318441573963;-1.879401971863028,52.451059431849615;-1.8783612747652496,52.44962092302177;-1.882395317123648,52.44969938835112;-1.8824275036318268,52.452046744809195;-1.8794663448793851,52.45332825709778;-1.8898840446932288,52.454230523991356?overview=full&steps=true&geometries=geojson',
+        format: new GeoJSON({dataProjection: 'EPSG:4326', featureProjection: "EPSG:3857" }),
+      })
+    });
+
+    this.map.addLayer(this.vectorLayer);
   }
 }
 

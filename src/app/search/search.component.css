@@ -65,3 +65,30 @@
     background-color: DodgerBlue !important; 
     color: #ffffff; 
 }
+
+button{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 0;
+  border: 0;
+  background-color: transparent;
+  color: white;
+  font-size: 13pt;
+  font-weight: bold;    
+}
+
+.routeBtn{
+  background-color: #28a745;
+  margin-top: 9px;
+  margin-left: 10px;
+  border-radius: 3px;
+  transition: 0.1s;
+  transition-timing-function: linear;
+  cursor:pointer;
+}
+
+.routeBtn:hover{
+  background-color: #55c56f;
+}
