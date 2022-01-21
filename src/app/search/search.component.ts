@@ -46,6 +46,10 @@ export class SearchComponent{
       this.latFrom = <number> p.geometry?.coordinates[1];
       this.inputFromValue = <string> p.properties.name
 
+      if(p.properties.housenumber){
+        this.inputFromValue += " " + p.properties.housenumber;
+      }
+
       if(p.properties.postcode){
         this.inputFromValue += " " + p.properties.postcode;
       }

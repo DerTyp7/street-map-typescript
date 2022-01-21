@@ -15,6 +15,9 @@ interface PhotonProperties{
     type?: string;
     postcode?: string;
     city?: string;
+    housenumber?: number;
+    street?: string;
+    state?: string;
 }
 
 export interface Photon{

@@ -22,6 +22,7 @@
     font-weight: bold;
     font-family: 'Roboto';
     padding: 5px;
+    width: 350px;
 }
 
 .autocomplete {
@@ -29,7 +30,7 @@
     display: inline-block;
     color: black;
   }
-  
+
 .autocomplete-items {
     visibility:  visible; /* without debugging it should be display:none */
     position: absolute;
@@ -41,29 +42,32 @@
     top: 100%;
     left: 0;
     right: 0;
-    width: 210px;
+    width: 350px;
     margin-left: 30px;
     margin-top: 5px;
 }
-  
+
   .autocomplete-items div {
     padding: 10px;
     font-weight: normal;
     font-size: 11pt;
     cursor: pointer;
-    background-color: #fff; 
-    border-bottom: 1px solid #d4d4d4; 
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
 }
-  
+
+.autocomplete-items div label{
+  cursor: pointer;
+}
   /*when hovering an item:*/
   .autocomplete-items div:hover {
-    background-color: #e9e9e9; 
+    background-color: #e9e9e9;
 }
-  
+
   /*when navigating through the items using the arrow keys:*/
   .autocomplete-active {
-    background-color: DodgerBlue !important; 
-    color: #ffffff; 
+    background-color: DodgerBlue !important;
+    color: #ffffff;
 }
 
 button{
@@ -76,7 +80,7 @@ button{
   background-color: transparent;
   color: white;
   font-size: 13pt;
-  font-weight: bold;    
+  font-weight: bold;
 }
 
 .routeBtn{

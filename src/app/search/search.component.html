@@ -1,15 +1,8 @@
 <div class="searchField">
-	<div id="coordinates">
-		<input *ngIf="photonItemsFrom[0]" hidden id="longFromInput" value="{{ longFrom }}">
-		<input *ngIf="photonItemsFrom[0]" hidden id="latFromInput" value="{{ latFrom }}">
-
-		<input *ngIf="photonItemsTo[0]" hidden id="longToInput" value="{{ longTo}}">
-		<input *ngIf="photonItemsTo[0]" hidden id="latToInput" value="{{ latTo }}">
-	</div>
 	<div class="autocomplete">
 	  	<input #inputFrom (change)="getValue(inputFrom.value, inputTo.value)" type="text" name="inputFrom" id="inputFrom" placeholder="From" value="{{ inputFromValue }}">
 		  <div #inputautocompleteList class="autocomplete-items autocomplete-items-from">
-	
+
 			<div *ngFor="let item of nominatimItemsFrom" >
 				{{ item.display_name }}
 				<input type="hidden" value="{{ item.display_name }}">
@@ -17,8 +10,17 @@
 
 			<div *ngFor="let item of photonItemsFrom"
 			(click)="selectPhoton(true, item)">
-				{{ item.properties.name }} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}} 
-			</div>
+        <!--IF TYPE == STREET-->
+        <label *ngIf="item.properties.type == 'street'">
+          {{ item.properties.name }} {{item.properties.housenumber}}<br>
+          {{item.properties.postcode}} {{item.properties.city}} {{item.properties.country}}
+        </label>
+
+        <label *ngIf="item.properties.type != 'street'">
+          {{ item.properties.name }} <br>
+          {{item.properties.street}} {{item.properties.housenumber}} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}}
+        </label>
+      </div>
 
 		</div>
 	</div>
@@ -33,8 +35,17 @@
 
 			<div *ngFor="let item of photonItemsTo"
 			(click)="selectPhoton(false, item)">
-				{{  item.properties.name }} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}}
-				<input type="hidden" value="{{  item.properties?.name }}">
+        <!--IF TYPE == STREET-->
+        <label *ngIf="item.properties.type == 'street'">
+          {{ item.properties.name }} {{item.properties.housenumber}}<br>
+          {{item.properties.postcode}} {{item.properties.city}} {{item.properties.country}}
+        </label>
+
+        <label *ngIf="item.properties.type != 'street'">
+          {{ item.properties.name }} <br>
+          {{item.properties.street}} {{item.properties.housenumber}} {{item.properties.postcode}} {{item.properties.city}} {{item.properties.countrycode}}
+        </label>
+
 			</div>
 
 		</div>
