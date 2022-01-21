@@ -68,7 +68,7 @@ export class SearchComponent{
   // Gets called in "app.component.html" when an input changes its value
   getValue(valueFrom:string, valueTo:string): void{
     console.log("From " + valueFrom + " to " + valueTo);
-    
+
     //this.updateAutoCompleteList([{display_name: 'Hallo'}, {display_name: 'Test2'}], [{display_name: 'Halload'}, {display_name: 'Test4'}]);
 
     /*
@@ -86,14 +86,19 @@ export class SearchComponent{
       this.photonItemsFrom.push(feature);
       this.longFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![0];
       this.latFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![1];
+      console.log("longFrom: " + this.longFrom)
+      console.log("latFrom: " + this.latFrom)
     }));
 
     this.photonService.sendQueryRequest(valueTo)
     .subscribe((response: PhotonFeatureCollection) => response.features?.forEach(feature => {
       this.photonItemsTo.push(feature);
       this.longTo = <number>this.photonItemsTo[0].geometry?.coordinates![0];
-      this.latTo = <number>this.photonItemsTo[0].geometry?.coordinates![1];
+      this.latTo = <number>this.photonItemsTo[0].geometry?.coordinates![1]
+      console.log("LongTo: " + this.longTo)
+      console.log("LatTo: " + this.latTo)
     }));
+
   }
 
   getRoute(): void{
