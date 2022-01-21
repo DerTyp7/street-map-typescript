@@ -1,20 +1,13 @@
 import { Component, AfterViewInit} from '@angular/core';
-
-
 import { defaults as defaultControls } from 'ol/control';
-import GeoJSON from 'ol/format/GeoJSON';
-import { OpenLayersGeoJSON } from './interfaces/openlayersGeojson';
 import { fromLonLat, transform } from 'ol/proj';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import ZoomToExtent from 'ol/control/ZoomToExtent';
-import Layer from 'ol/layer/Layer';
 import VectorLayer from 'ol/layer/Vector';
-import Draw from 'ol/interaction/Draw';
 import VectorSource from 'ol/source/Vector';
-import { wrapX } from 'ol/extent';
 import LineString from 'ol/geom/LineString';
 import { Osrm } from './interfaces/osrm';
 import { Feature } from 'ol';
@@ -31,7 +24,7 @@ export class AppComponent implements AfterViewInit {
   map: Map;
 
   constructor() { }
-  
+
   ngAfterViewInit() {
     this.map = new Map({
       target: 'map',
@@ -61,7 +54,7 @@ export class AppComponent implements AfterViewInit {
 
   drawPath(osrm: Osrm): void{
     console.log(osrm) //https://routing.openstreetmap.de/routed-bike/route/v1/driving/8.6042708,53.5151533;13.6887164,51.0491468?overview=false&alternatives=true&steps=true
-   
+
     const coordinates = osrm.routes[0].geometry.coordinates || [];
     const f_coordinates: Array<Array<number>> = []
     coordinates.forEach(coordinate =>
