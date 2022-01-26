@@ -106,8 +106,8 @@ export class SearchComponent{
   }
 
   getRoute(): void{
-    console.log("getroute");
-    this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latFrom)
+
+    this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
     .subscribe((response: Osrm) => {
       console.log(response);
       this.appComponent.drawPath(response);
