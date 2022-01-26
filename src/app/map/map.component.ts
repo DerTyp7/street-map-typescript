@@ -23,7 +23,7 @@ export class MapComponent implements AfterViewInit {
   constructor() { }
 
   map: Map;
-  routeSteps: Array<OsrmStep> = []
+
 
   ngAfterViewInit() {
     this.map = new Map({
@@ -85,13 +85,5 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.map.addLayer(this.vectorLayer);*/
-  }
-
-  updateSidebar(osrm: Osrm): void{
-    console.log("updateSidebar")
-    if(osrm.routes[0].legs[0].steps){
-      this.routeSteps = osrm.routes[0].legs[0].steps;
-    }
-    console.log(this.routeSteps)
   }
 }
