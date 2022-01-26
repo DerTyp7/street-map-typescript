@@ -1,11 +1,12 @@
 import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
 import { Nominatim } from '../interfaces/nominatim';
-import { NominatimService } from '../nominatim.service';
+import { NominatimService } from '../services/nominatim.service';
 import { Photon, PhotonFeatureCollection } from '../interfaces/photon';
-import { PhotonService } from '../photon.service';
-import { OsrmService } from '../osrm.service';
+import { PhotonService } from '../services/photon.service';
+import { OsrmService } from '../services/osrm.service';
 import { Osrm } from '../interfaces/osrm';
 import { AppComponent } from '../app.component';
+
 
 
 @Component({

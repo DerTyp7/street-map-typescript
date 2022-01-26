@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Osrm } from './interfaces/osrm';
+import { Osrm } from '../interfaces/osrm';
 
 @Injectable({
   providedIn: 'root'
