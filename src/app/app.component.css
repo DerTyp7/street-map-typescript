@@ -54,5 +54,6 @@ header p{
 
 .route-list div p{
   display: inline-block;
+  text-transform: capitalize;
   padding-left: 40px;
 }
