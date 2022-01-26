@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, Output, ViewChild } from '@angular/core';
 import { Nominatim } from '../interfaces/nominatim';
 import { NominatimService } from '../services/nominatim.service';
 import { Photon, PhotonFeatureCollection } from '../interfaces/photon';
@@ -6,6 +6,7 @@ import { PhotonService } from '../services/photon.service';
 import { OsrmService } from '../services/osrm.service';
 import { Osrm } from '../interfaces/osrm';
 import { MapComponent } from '../map/map.component';
+import { EventEmitter } from '@angular/core';
 
 
 
@@ -35,7 +36,7 @@ export class SearchComponent{
   selectedPhotonFrom: Photon;
   selectedPhotonTo: Photon;
 
-  @ViewChild('mapRef') mapComponent!: MapComponent;
+  @Output() emitter = new EventEmitter<Osrm>();
 
   constructor(
     private nominatimService: NominatimService,
@@ -112,8 +113,11 @@ export class SearchComponent{
   getRoute(): void{
     this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
     .subscribe((response: Osrm) => {
+      this.emitter.emit(response);
+      /*
       this.mapComponent.updateSidebar(response);
       this.mapComponent.drawPath(response);
+      */
     }
     );
   }

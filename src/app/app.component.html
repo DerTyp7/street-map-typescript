@@ -1,7 +1,6 @@
 <header>
-  <app-search></app-search>
+  <app-search (emitter)="onSearchResponse($event)"></app-search>
   <p>{{title}}</p>
 </header>
 
-<app-map #mapRef ></app-map>
-
+<app-map #mapRef></app-map>
