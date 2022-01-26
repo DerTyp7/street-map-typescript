@@ -1,11 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, ViewChild} from '@angular/core';
 import { Nominatim } from '../interfaces/nominatim';
 import { NominatimService } from '../services/nominatim.service';
 import { Photon, PhotonFeatureCollection } from '../interfaces/photon';
 import { PhotonService } from '../services/photon.service';
 import { OsrmService } from '../services/osrm.service';
 import { Osrm } from '../interfaces/osrm';
-import { AppComponent } from '../app.component';
+import { MapComponent } from '../map/map.component';
 
 
 
@@ -35,11 +35,12 @@ export class SearchComponent{
   selectedPhotonFrom: Photon;
   selectedPhotonTo: Photon;
 
+  @ViewChild('mapRef') mapComponent!: MapComponent;
+
   constructor(
     private nominatimService: NominatimService,
     private photonService: PhotonService,
     private osrmService: OsrmService,
-    private appComponent: AppComponent,
     ) { }
 
   selectPhoton(isFrom: boolean, p: Photon): void{
@@ -111,8 +112,8 @@ export class SearchComponent{
   getRoute(): void{
     this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
     .subscribe((response: Osrm) => {
-      this.appComponent.updateSidebar(response);
-      this.appComponent.drawPath(response);
+      this.mapComponent.updateSidebar(response);
+      this.mapComponent.drawPath(response);
     }
     );
   }

@@ -13,7 +13,6 @@ export class OsrmService{
 
   // sends a query request to Osrm and gets response (http://project-osrm.org/docs/v5.24.0/api/?language=cURL#table-service)
   sendQueryRequest(longFrom: number, latFrom: number, longTo: number, latTo: number): Observable<Osrm> {
-    console.log(latTo)
     console.log("https://routing.openstreetmap.de/routed-bike/route/v1/driving/" + longFrom + "," + latFrom + ";" + longTo + "," + latTo + "?overview=full&alternatives=false&steps=true&geometries=geojson")
     return this.http.get<Osrm>("https://routing.openstreetmap.de/routed-bike/route/v1/driving/" + longFrom + "," + latFrom + ";" + longTo + "," + latTo + "?overview=full&alternatives=false&steps=true&geometries=geojson");
   }
