@@ -9,7 +9,7 @@ import ZoomToExtent from 'ol/control/ZoomToExtent';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import LineString from 'ol/geom/LineString';
-import { Osrm } from './interfaces/osrm';
+import { Osrm, OsrmStep } from './interfaces/osrm';
 import { Feature } from 'ol';
 import Geometry from 'ol/geom/Geometry';
 
@@ -22,6 +22,7 @@ import Geometry from 'ol/geom/Geometry';
 export class AppComponent implements AfterViewInit {
   title = "Street Map";
   map: Map;
+  routeSteps: Array<OsrmStep> = []
 
   constructor() { }
 
@@ -66,8 +67,11 @@ export class AppComponent implements AfterViewInit {
     const lineString: LineString = new LineString(f_coordinates);
     const feature: Feature<Geometry> = new Feature({ geometry: lineString });
     const vectorSource = new VectorSource({ features: [ feature ]});
-    console.log(feature.getGeometry());
-    const vectorLayer = new VectorLayer({ source: vectorSource });
+
+    const vectorLayer = new VectorLayer({
+
+      source: vectorSource,
+    });
     this.map.addLayer(vectorLayer);
 
    // this.features = new GeoJSON().readFeatures(new openLayersGeoJSON())
@@ -83,5 +87,14 @@ export class AppComponent implements AfterViewInit {
 
     this.map.addLayer(this.vectorLayer);*/
   }
+
+  updateSidebar(osrm: Osrm): void{
+    console.log("updateSidebar")
+    if(osrm.routes[0].legs[0].steps){
+      this.routeSteps = osrm.routes[0].legs[0].steps;
+    }
+    console.log(this.routeSteps)
+  }
+
 }
 

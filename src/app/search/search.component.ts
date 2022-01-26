@@ -6,6 +6,8 @@ import { PhotonService } from '../photon.service';
 import { OsrmService } from '../osrm.service';
 import { Osrm } from '../interfaces/osrm';
 import { AppComponent } from '../app.component';
+
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -36,7 +38,7 @@ export class SearchComponent{
     private nominatimService: NominatimService,
     private photonService: PhotonService,
     private osrmService: OsrmService,
-    private appComponent: AppComponent
+    private appComponent: AppComponent,
     ) { }
 
   selectPhoton(isFrom: boolean, p: Photon): void{
@@ -106,10 +108,9 @@ export class SearchComponent{
   }
 
   getRoute(): void{
-
     this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
     .subscribe((response: Osrm) => {
-      console.log(response);
+      this.appComponent.updateSidebar(response);
       this.appComponent.drawPath(response);
     }
     );

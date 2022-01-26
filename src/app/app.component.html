@@ -4,3 +4,14 @@
 </header>
 
 <div id="map" class="map"></div>
+
+<div class="osrm-route-container">
+  <h4>Your Route Steps</h4>
+
+  <div class="route-list">
+    <div *ngFor="let step of this.routeSteps">
+      <p>{{step.maneuver?.type }} {{step.maneuver?.modifier }}</p>
+    </div>
+  </div>
+</div>
+
