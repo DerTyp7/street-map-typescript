@@ -115,7 +115,7 @@ export class SearchComponent {
   }
 
   getRoute(): void{
-    this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
+    this.osrmService.sendQueryRequest("https://routing.openstreetmap.de/routed-bike/route/v1/driving/" + this.longFrom + "," + this.latFrom + ";" + this.longTo + "," + this.latTo)
       .subscribe((response: Osrm) => {
         this.emitter.emit(response);
         /*
