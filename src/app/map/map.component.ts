@@ -20,10 +20,7 @@ import Geometry from 'ol/geom/Geometry';
 })
 export class MapComponent implements AfterViewInit {
 
-  constructor() { }
-
   map: Map;
-
 
   ngAfterViewInit() {
     this.map = new Map({
@@ -53,24 +50,15 @@ export class MapComponent implements AfterViewInit {
   }
 
   drawPath(osrm: Osrm): void{
-    console.log(osrm) //https://routing.openstreetmap.de/routed-bike/route/v1/driving/8.6042708,53.5151533;13.6887164,51.0491468?overview=false&alternatives=true&steps=true
+    // https://routing.openstreetmap.de/routed-bike/route/v1/driving/8.6042708,53.5151533;13.6887164,51.0491468?overview=false&alternatives=true&steps=true
+    console.log(osrm);
 
     const coordinates = osrm.routes[0].geometry.coordinates || [];
-    const f_coordinates: Array<Array<number>> = []
-    coordinates.forEach(coordinate =>
-      {
-        f_coordinates.push(transform(coordinate, 'EPSG:4326', 'EPSG:3857'))
-      }
-    );
-
-    const lineString: LineString = new LineString(f_coordinates);
+    const fCoordinates: number[][] = coordinates.map(coordinate => (transform(coordinate, 'EPSG:4326', 'EPSG:3857')));
+    const lineString: LineString = new LineString(fCoordinates);
     const feature: Feature<Geometry> = new Feature({ geometry: lineString });
     const vectorSource = new VectorSource({ features: [ feature ]});
-
-    const vectorLayer = new VectorLayer({
-
-      source: vectorSource,
-    });
+    const vectorLayer = new VectorLayer({ source: vectorSource });
     this.map.addLayer(vectorLayer);
 
    // this.features = new GeoJSON().readFeatures(new openLayersGeoJSON())

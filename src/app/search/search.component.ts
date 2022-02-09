@@ -12,8 +12,9 @@ import { EventEmitter } from '@angular/core';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
+export class SearchComponent {
 
-export class SearchComponent{
+  @Output() emitter = new EventEmitter<Osrm>();
   @ViewChild("inputautocompleteList") autocompleteList: ElementRef;
 
   nominatimItemsFrom: Nominatim[] = [];
@@ -33,8 +34,6 @@ export class SearchComponent{
   selectedPhotonFrom: Photon;
   selectedPhotonTo: Photon;
 
-  @Output() emitter = new EventEmitter<Osrm>();
-
   constructor(
     private nominatimService: NominatimService,
     private photonService: PhotonService,
@@ -44,19 +43,19 @@ export class SearchComponent{
   getFormattedPhotonValue(p: Photon): string{
     let formatted: string = "";
 
-    if(p.properties.name){
+    if (p.properties.name) {
       formatted += " " + p.properties.name;
     }
-    if(p.properties.housenumber){
+    if (p.properties.housenumber) {
       formatted += " " + p.properties.housenumber;
     }
-    if(p.properties.postcode){
+    if (p.properties.postcode) {
       formatted += " " + p.properties.postcode;
     }
-    if(p.properties.city){
+    if (p.properties.city) {
       formatted += " " + p.properties.city;
     }
-    if(p.properties.countrycode){
+    if (p.properties.countrycode) {
       formatted += " " + p.properties.countrycode;
     }
 
@@ -65,14 +64,14 @@ export class SearchComponent{
 
 
   selectPhoton(isFrom: boolean, p: Photon): void{
-    if(isFrom){
+    if (isFrom) {
       this.selectedPhotonFrom = p;
       this.longFrom = <number> p.geometry?.coordinates[0];
       this.latFrom = <number> p.geometry?.coordinates[1];
       this.inputFromValue = <string> p.properties.name;
       this.inputFromValue = this.getFormattedPhotonValue(p);
       this.photonItemsFrom = [];
-    }else{
+    } else {
       this.selectedPhotonTo = p;
       this.longTo = <number>p.geometry?.coordinates[0];
       this.latTo = <number>p.geometry?.coordinates[1];
@@ -80,10 +79,12 @@ export class SearchComponent{
       this.inputToValue = this.getFormattedPhotonValue(p);
       this.photonItemsTo = [];
     }
-
   }
-  // Gets called in "app.component.html" when an input changes its value
-  getValue(value:string, isFrom: boolean): void{
+
+  /**
+   * Gets called in "app.component.html" when an input changes its value
+   */
+  getValue(value: string, isFrom: boolean): void {
 
     //this.updateAutoCompleteList([{display_name: 'Hallo'}, {display_name: 'Test2'}], [{display_name: 'Halload'}, {display_name: 'Test4'}]);
 
@@ -99,28 +100,29 @@ export class SearchComponent{
     this.photonItemsTo = [];
 
     this.photonService.sendQueryRequest(value)
-    .subscribe((response: PhotonFeatureCollection) => response.features?.forEach(feature => {
-      if(isFrom){
-        this.photonItemsFrom.push(feature);
-        this.longFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![0];
-        this.latFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![1];
-      }else{
-        this.photonItemsTo.push(feature);
-        this.longTo = <number>this.photonItemsFrom[0].geometry?.coordinates![0];
-        this.latTo = <number>this.photonItemsFrom[0].geometry?.coordinates![1];
-      }
-    }));
+      .subscribe((response: PhotonFeatureCollection) => response.features?.forEach(feature => {
+        if (isFrom) {
+          this.photonItemsFrom.push(feature);
+          this.longFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![0];
+          this.latFrom = <number>this.photonItemsFrom[0].geometry?.coordinates![1];
+        } else {
+          this.photonItemsTo.push(feature);
+          this.longTo = <number>this.photonItemsFrom[0].geometry?.coordinates![0];
+          this.latTo = <number>this.photonItemsFrom[0].geometry?.coordinates![1];
+        }
+      })
+    );
   }
 
   getRoute(): void{
     this.osrmService.sendQueryRequest(this.longFrom, this.latFrom, this.longTo, this.latTo)
-    .subscribe((response: Osrm) => {
-      this.emitter.emit(response);
-      /*
-      this.mapComponent.updateSidebar(response);
-      this.mapComponent.drawPath(response);
-      */
-    }
+      .subscribe((response: Osrm) => {
+        this.emitter.emit(response);
+        /*
+        this.mapComponent.updateSidebar(response);
+        this.mapComponent.drawPath(response);
+        */
+      }
     );
   }
 }

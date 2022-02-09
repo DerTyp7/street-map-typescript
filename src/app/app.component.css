@@ -1,4 +1,4 @@
-header{
+header {
   background-color: rgb(37, 37, 37);
   height: 50px;
   font-size: 15pt;
@@ -6,7 +6,7 @@ header{
   font-weight: bold;
 }
 
-header p{
+header p {
     margin-top: 12px;
     padding-right: 10px;
     display:block;

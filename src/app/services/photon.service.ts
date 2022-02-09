@@ -3,16 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { PhotonFeatureCollection } from '../interfaces/photon';
 import { Observable } from 'rxjs';
 
+/**
+ * Communicates with Photon (https://photon.komoot.io/)
+ */
 @Injectable({
   providedIn: 'root'
 })
-
-// communicates with Photon (https://photon.komoot.io/)
 export class PhotonService{
+
   constructor(private http: HttpClient) { }
 
-  // sends a query request to Photon and gets response (https://photon.komoot.io/)
-  sendQueryRequest(q: string): Observable<PhotonFeatureCollection> {
-    return this.http.get<PhotonFeatureCollection>("https://photon.komoot.io/api/?q=" + q + "&limit=10&zoom=12");
+  /**
+   * Sends a query request to Photon and gets response (https://photon.komoot.io/)
+   */
+  sendQueryRequest(queryString: string): Observable<PhotonFeatureCollection> {
+    return this.http.get<PhotonFeatureCollection>("https://photon.komoot.io/api/?q=" + queryString + "&limit=10&zoom=12");
   }
+
 }

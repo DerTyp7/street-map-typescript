@@ -1,9 +1,9 @@
-interface OpenLayersGeometry{
+interface OpenLayersGeometry {
     coordinates: Array<Array<number>>;
     type?: string;
 }
 
-interface OpenLayersProperties{
+interface OpenLayersProperties {
     ECO_NAME?: string;
     BIOME_NAME?: string;
     REALM?: string;
@@ -14,14 +14,14 @@ interface OpenLayersProperties{
     COLOR_NNH?: string;
 }
 
-interface OpenLayersFeature{
+interface OpenLayersFeature {
     type: string;
     geometry: OpenLayersGeometry;
     id: number;
     properties: OpenLayersProperties;
 }
 
-export interface OpenLayersGeoJSON{
+export interface OpenLayersGeoJSON {
     type: string;
     features: Array<OpenLayersFeature>;
     geometry: OpenLayersGeometry;
